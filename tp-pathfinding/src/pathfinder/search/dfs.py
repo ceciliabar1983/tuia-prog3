@@ -21,8 +21,30 @@ class DepthFirstSearch:
         # Initialize expanded with the empty dictionary
         expanded = dict()
 
+        if grid.objective_test(root.state):
+            return Solution(root, expanded)
+        
+        
+
         # Initialize frontier with the root node
-        # TODO Complete the rest!!
-        # ...
+        
+        frontier = StackFrontier()
+        frontier.add(root)
+
+        while True:
+            if frontier.is_empty():
+                return NoSolution(expanded)
+            nodo = frontier.remove()
+            if nodo.state in expanded:
+                continue
+            expanded[nodo.state] = True
+
+            for action in grid.actions(nodo.state):
+                succesor = grid.result(nodo.state, action)
+                if succesor not in expanded:
+                    son = Node( "", state=succesor, cost=nodo.cost + grid.individual_cost(nodo.state, action), parent=nodo, action=action)
+                    if grid.objective_test(succesor):
+                        return Solution(son,expanded)
+                    frontier.add(son)
 
         return NoSolution(expanded)
