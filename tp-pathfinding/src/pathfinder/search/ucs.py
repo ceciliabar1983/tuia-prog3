@@ -43,4 +43,4 @@ class UniformCostSearch:
                     reached[succesor] = succesor_cost
                     frontier.add(son, succesor_cost)
 
-        return NoSolution()
+        return NoSolution(reached)

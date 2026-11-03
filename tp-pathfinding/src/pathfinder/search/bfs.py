@@ -21,7 +21,7 @@ class BreadthFirstSearch:
         # Apply objective test
         
         if grid.objective_test(root.state):
-            return Solution(root, reached)
+            return Solution(root)
        # Initialize frontier with the root node
         frontier=QueueFrontier()
         frontier.add(root)
@@ -44,4 +44,4 @@ class BreadthFirstSearch:
                         return Solution(son, reached)
                     reached[succesor]=True
                     frontier.add(son)
-        return Solution(root, reached)
+        return NoSolution(reached)
